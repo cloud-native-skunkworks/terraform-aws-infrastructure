@@ -1,4 +1,6 @@
-## sre-infra-aws
+## terraform-aws-infrastructure
+
+[![Terraform](https://github.com/cloud-native-skunkworks/terraform-aws-infrastructure/actions/workflows/terraform.yml/badge.svg)](https://github.com/cloud-native-skunkworks/terraform-aws-infrastructure/actions/workflows/terraform.yml)
 
 This project contains resources for SRE infrastructure to be deployed to AWS.
 It sets up an EKS cluster with the appropriate resources for managing tenants of that cluster through CI/CD and automating ingress to their applciations.
