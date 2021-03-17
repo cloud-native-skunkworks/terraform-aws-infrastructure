@@ -53,7 +53,7 @@ Requirements:
 
 ## Installation
 
-1. `aws s3 mb s3://sre-infra-aws-cloud-skunkworks --region eu-west-2`
+1. terraform login ( you can modify the backend to your workspace in terraform cloud )
 2. `cd terraform && terraform apply -target=module.cluster && terraform apply -target=module.deployment`
 3. `aws eks --region eu-west-2 update-kubeconfig --name sre-infra`
 
