@@ -9,12 +9,15 @@ provider "aws" {
 }
 
 provider "kubernetes" {
-  config_path = var.kubeconfig_filename
+  host                   = var.cluster_endpoint
+  cluster_ca_certificate = var.cluster_cert
+  token                  = var.cluster_token
 }
 
 provider "helm" {
   kubernetes {
-    config_path = var.kubeconfig_filename
-
+    host                   = var.cluster_endpoint
+    cluster_ca_certificate = var.cluster_cert
+    token                  = var.cluster_token
   }
 }
