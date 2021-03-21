@@ -42,7 +42,7 @@
 #       with:
 #         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-name: 'Terraform'
+name: 'Terraform Cluster Apply'
 
 on:
   workflow_dispatch:
@@ -84,7 +84,7 @@ jobs:
       run: terraform plan -target=module.cluster
     - name: Terraform Apply
       working-directory: terraform
-      run: terraform plan -target=module.cluster
+      run: terraform apply -auto-approve -target=module.cluster
       #- name: Terraform Plan Deployments
       #working-directory: terraform
       #run: terraform plan -target=module.deployments
