@@ -9,6 +9,7 @@ module "deployments" {
 
   aws_acm_certificate = module.cluster.aws_acm_certificate
   dns_base_domain     = module.cluster.dns_base_domain
+  cluster_name        = module.cluster.cluster_name
   cluster_token       = module.cluster.cluster_token
   cluster_cert        = module.cluster.cluster_cert
   cluster_endpoint    = module.cluster.cluster_endpoint

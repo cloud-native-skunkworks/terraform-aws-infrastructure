@@ -17,3 +17,20 @@ output "cluster_token" {
   description = "Cluster token"
   value       = module.cluster.cluster_token
 }
+
+output "cluster_config_map_aws_auth" {
+  description = "aws auth configmap"
+  value       = module.cluster.config_map_aws_auth
+}
+
+output "account_id" {
+  value = module.cluster.account_id
+}
+
+output "caller_arn" {
+  value = module.cluster.current_arn
+}
+
+output "caller_user" {
+  value = module.cluster.caller_user
+}

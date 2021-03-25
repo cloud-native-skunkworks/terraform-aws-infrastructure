@@ -1,0 +1,78 @@
+loki:
+  enabled: true
+
+promtail:
+  enabled: true
+
+fluent-bit:
+  enabled: true
+
+grafana:
+  enabled: false
+  sidecar:
+    datasources:
+      enabled: true
+  image:
+    tag: 6.7.0
+
+prometheus:
+  enabled: false
+
+filebeat:
+  enabled: true
+  filebeatConfig:
+    filebeat.yml: |
+      # logging.level: debug
+      filebeat.inputs:
+      - type: container
+        paths:
+          - /var/log/containers/*.log
+        processors:
+        - add_kubernetes_metadata:
+            host: ${NODE_NAME}
+            matchers:
+            - logs_path:
+                logs_path: "/var/log/containers/"
+      output.logstash:
+        hosts: ["loki-logstash-headless:5044"] # {{name_of_release}}-logstash-headless:5044
+
+logstash:
+  enabled: true
+  image: grafana/logstash-output-loki
+  imageTag: 1.0.1
+
+  logstashConfig:
+    logstash.yml: |
+      http.host: 0.0.0.0
+      xpack.monitoring.enabled: false
+
+  logstashPipeline:
+    logstash.conf: |
+      input {
+        beats {
+          port => 5044
+        }
+      }
+
+      filter {
+        if [kubernetes] {
+          mutate {
+            add_field => {
+              "container" => "%{[kubernetes][container][name]}"
+              "namespace" => "%{[kubernetes][namespace]}"
+              "pod" => "%{[kubernetes][pod][name]}"
+            }
+            replace => { "host" => "%{[kubernetes][node][name]}"}
+          }
+        }
+        mutate {
+          remove_field => ["tags"]
+        }
+      }
+
+      output {
+        loki {
+          url => "http://loki:3100/loki/api/v1/push"
+        }
+        # stdout { codec => rubydebug }
+      }

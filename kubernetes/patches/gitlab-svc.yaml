@@ -1,7 +1,0 @@
-spec:
-  ports:
-  - name: https
-    nodePort: 32748
-    port: 443
-    protocol: TCP
-    targetPort: http
