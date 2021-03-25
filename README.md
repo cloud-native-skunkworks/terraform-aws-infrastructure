@@ -13,7 +13,12 @@ Requirements:
 
 ![images](images/basic.png)
 
-![images](images/cluster.png)
+![images1](images/cluster.png)
+
+Using the loki datasource within Grafana...
+
+![images2](images/loki.png)
+
 
 ## Installation
 
